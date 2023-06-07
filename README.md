@@ -38,29 +38,26 @@
 7. В интерактивной оболочке psql создайте базу данных "university" с помощью следующей команды
    ```bash
    CREATE DATABASE university;
-8. Создайте нового пользователя "postgres" с паролем "postgres" и предоставьте ему полные права 
-доступа к базе данных "university"
+   \q
+8. Задайте пароль пользователю postgres - "postgres" и предоставьте ему полные права 
+доступа к базе данных "university", обновите файл pg_hba.conf и перезапустите службу postgresql
    ```bash
    ALTER USER postgres WITH PASSWORD 'postgres';
    GRANT ALL PRIVILEGES ON DATABASE university TO postgres;
-9. Запустите sql-скрипт
-   ```bash
-   psql -U postgres -d university -f home/{your_name}/university/task1and2/task1.sql>;
+   
+   sudo nano /etc/postgresql/{version}/main/pg_hba.conf
+   local all postgres md5
+   
+   sudo systemctl restart postgresql
+9. Для создания таблиц в базе, установите Dbeaver, PgAdmin4 или Pycharm Professional
+   И выполните скрипт task1.sql из директории tasks1and2. Там же можно проверить и вторую часть задания.
 10. Запустите веб-приложение:
     ```bash
     uvicorn main:app --reload
 11. Откройте браузер и перейдите по адресу [http://localhost:8000/docs](http://localhost:8000/docs) для 
 просмотра документации приложения на Swagger.
 
-Для Windows скачать PostgresQL с официального сайта, с ним вместе идет pgAdmin4, все операции по 
-созданию БД university можно проделать там. Так же там можно проверить работу скрипта sql из второй части задания.
-
-На Ubuntu запуск идентичен task1 или запустить при помощи какого либо инструмента для работы с БД, например Dbeaver, 
-Pycharm Professional.
-   
-   `psql -U postgres -d university -f home/{your_name}/university/task1and2/task2.sql>;`
-
-
+    
 ## API
 
 Проект предоставляет следующие API-эндпоинты:
